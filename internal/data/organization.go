@@ -14,9 +14,9 @@ type OrganizationModel struct {
 
 	Members []*UserModel `bun:"rel:has-many,join:id=organization_id"`
 
-	OwnerId int64      `bun:"owner_id"`
+	OwnerId int64      `bun:"owner_id,notnull"`
 	Owner   *UserModel `bun:"rel:belongs-to,join:owner_id=id"`
 
-	CreatedAt time.Time `bun:"created_at,default:now()"`
-	UpdatedAt time.Time `bun:"updated_at"`
+	CreatedAt time.Time  `bun:"created_at,default:current_timestamp"`
+	UpdatedAt *time.Time `bun:"updated_at"`
 }

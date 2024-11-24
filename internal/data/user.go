@@ -15,6 +15,6 @@ type UserModel struct {
 	Email          string `bun:"email,notnull"`
 	Status         string `bun:"status,notnull,default:active"`
 
-	CreatedAt time.Time `bun:"created_at,default:now()"`
-	UpdatedAt time.Time `bun:"updated_at"`
+	CreatedAt time.Time  `bun:"created_at,default:current_timestamp"`
+	UpdatedAt *time.Time `bun:"updated_at"`
 }

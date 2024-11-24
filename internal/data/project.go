@@ -18,9 +18,9 @@ type ProjectModel struct {
 	Environments []*EnvironmentModel `bun:"rel:has-many,join:id=project_id"`
 	Mutations    []*MutationModel    `bun:"rel:has-many,join:id=project_id"`
 
-	UserId    int64     `bun:"user_id"`
-	CreatedBy UserModel `bun:"rel:belongs-to,join:user_id=id"`
+	UserId    int64      `bun:"user_id"`
+	CreatedBy *UserModel `bun:"rel:belongs-to,join:user_id=id"`
 
-	CreatedAt time.Time `bun:"created_at,default:now()"`
-	UpdatedAt time.Time `bun:"updated_at"`
+	CreatedAt time.Time  `bun:"created_at,default:current_timestamp"`
+	UpdatedAt *time.Time `bun:"updated_at"`
 }
