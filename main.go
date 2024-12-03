@@ -1,9 +1,8 @@
 package main
 
 import (
-	"beholder/internal/data"
 	db "beholder/internal/infra"
-	"context"
+	"beholder/internal/presentation"
 )
 
 func main() {
@@ -11,6 +10,5 @@ func main() {
 	db := db.GetDB()
 	defer db.Close()
 
-	org := new(data.OrganizationModel)
-	db.NewSelect().Model(org).Where("id = ? ", 1).Scan(context.Background())
+	presentation.SetupRouter()
 }
