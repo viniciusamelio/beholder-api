@@ -3,6 +3,7 @@ module beholder
 go 1.23.3
 
 require (
+	github.com/godruoyi/go-snowflake v0.0.2
 	github.com/uptrace/bun v1.2.6
 	github.com/uptrace/bun/dialect/sqlitedialect v1.2.6
 	github.com/uptrace/bun/driver/sqliteshim v1.2.6
