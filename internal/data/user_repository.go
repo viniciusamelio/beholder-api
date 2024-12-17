@@ -33,3 +33,16 @@ func (r *UserRepository) CreateUser(input boundaries.CreateUserInput) (*UserMode
 
 	return user, nil
 }
+
+func (r *UserRepository) DeleteUser(input boundaries.DeleteUserInput) (*int, error) {
+	user := new(UserModel)
+	user.ID = int64(input.ID)
+
+	_, err := r.db.NewDelete().Model(user).Exec(context.Background())
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &input.ID, nil
+}

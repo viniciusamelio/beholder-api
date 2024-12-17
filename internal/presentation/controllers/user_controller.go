@@ -29,3 +29,14 @@ func (c *UserController) CreateUser(input boundaries.CreateUserInput) (*boundari
 		CreatedAt:      userModel.CreatedAt,
 	}, nil
 }
+
+func (c *UserController) DeleteUser(input boundaries.DeleteUserInput) (*boundaries.DeleteUserOutput, error) {
+	_, err := c.UserRepository.DeleteUser(input)
+	if err != nil {
+		return nil, err
+	}
+
+	return &boundaries.DeleteUserOutput{
+		Message: "User Successfully deleted",
+	}, nil
+}
