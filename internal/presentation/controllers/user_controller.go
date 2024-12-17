@@ -17,9 +17,6 @@ func NewUserController(userRepository data.UserRepository) UserController {
 
 func (c *UserController) CreateUser(input boundaries.CreateUserInput) (*boundaries.CreateUserOutput, error) {
 	userModel, err := c.UserRepository.CreateUser(input)
-	if err != nil {
-		return nil, err
-	}
 
 	return &boundaries.CreateUserOutput{
 		ID:             int(userModel.ID),
@@ -27,7 +24,7 @@ func (c *UserController) CreateUser(input boundaries.CreateUserInput) (*boundari
 		Name:           userModel.Name,
 		Email:          userModel.Email,
 		CreatedAt:      userModel.CreatedAt,
-	}, nil
+	}, *err
 }
 
 func (c *UserController) DeleteUser(input boundaries.DeleteUserInput) (*boundaries.DeleteUserOutput, error) {

@@ -2,47 +2,38 @@ package data
 
 import (
 	"beholder/internal/boundaries"
-	"beholder/internal/infra"
-	"context"
+	"beholder/internal/data/models"
+	"beholder/internal/mappers"
 
 	"github.com/uptrace/bun"
 )
 
 type UserRepository struct {
-	db *bun.DB
+	crud *CrudRepository
 }
 
 func NewUserRepository(db *bun.DB) UserRepository {
 	return UserRepository{
-		db: db,
+		crud: &CrudRepository{
+			db: db,
+		},
 	}
 }
 
-func (r *UserRepository) CreateUser(input boundaries.CreateUserInput) (*UserModel, error) {
-	user := new(UserModel)
-	user.ID = int64(infra.GenerateSnowflakeID())
-	user.OrganizationID = int64(input.OrganizationID)
-	user.Email = input.Email
-	user.Name = input.Name
-	user.Status = "active"
+func (r *UserRepository) CreateUser(input boundaries.CreateUserInput) (*models.UserModel, *error) {
+	user := mappers.CreateUserMapper(input)
+	r.crud.Model = user
+	err := r.crud.Create(user)
 
-	_, err := r.db.NewInsert().Model(user).Returning("*").Exec(context.Background(), user)
-	if err != nil {
-		return nil, err
-	}
-
-	return user, nil
+	return user, err
 }
 
 func (r *UserRepository) DeleteUser(input boundaries.DeleteUserInput) (*int, error) {
-	user := new(UserModel)
+	user := new(models.UserModel)
 	user.ID = int64(input.ID)
+	r.crud.Model = user
 
-	_, err := r.db.NewDelete().Model(user).Exec(context.Background())
+	err := r.crud.Delete(QueryFilter{})
 
-	if err != nil {
-		return nil, err
-	}
-
-	return &input.ID, nil
+	return &input.ID, *err
 }

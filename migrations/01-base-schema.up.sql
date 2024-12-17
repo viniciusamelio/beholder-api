@@ -18,7 +18,7 @@ CREATE TABLE users(
     id bigserial primary key not null,
     organization_id bigserial,
     name varchar not null,
-    email varchar not null,
+    email varchar not null unique,
     status varchar not null default('active'),
     created_at timestamp default(CURRENT_TIMESTAMP),
     updated_at timestamp,
