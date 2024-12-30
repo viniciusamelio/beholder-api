@@ -1,0 +1,26 @@
+{
+  "name": "beholder",
+  "scripts": {
+    "dev": "bun  --watch src/index.ts",
+    "lint": "bunx biome check src",
+    "lint:fix": "bun lint --write",
+    "migration:generate": "bun run drizzle-kit generate",
+    "migration:push": "bunx drizzle-kit push",
+    "migrate": "bun migration:generate && bun migration:push",
+    "build": "bun build src/index.ts --compile --outfile dist/app",
+    "start": "bun migrate && ./dist/app"
+  },
+  "dependencies": {
+    "@akashrajpurohit/snowflake-id": "^2.0.0",
+    "@libsql/client": "^0.14.0",
+    "drizzle-orm": "^0.33.0",
+    "elysia": "^1.1.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "^1.1.6",
+    "drizzle-kit": "^0.24.0",
+    "rocketseat-biomejs-config": "^1.0.1",
+    "typescript": "^5.5.4"
+  }
+}
