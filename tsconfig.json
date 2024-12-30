@@ -3,6 +3,9 @@
     "lib": [
       "ESNext"
     ],
+    "paths": {
+      "@/*" : ["./src/*"]
+    },
     "module": "ESNext",
     "target": "ESNext",
     "moduleResolution": "Bundler",

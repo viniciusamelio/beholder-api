@@ -1,8 +1,11 @@
 import { SnowflakeId } from "@akashrajpurohit/snowflake-id";
+import type { IdService } from "../protocols";
 
-export const SnowFlakeIdService = {
-	generate: () => {
-		const snowflake = SnowflakeId();
-		return snowflake.generate();
-	},
-};
+
+// @Service<IdService>()
+export class SnowFlakeIdService implements IdService {
+	generate(): string {
+		return SnowflakeId().generate();
+	}
+
+}

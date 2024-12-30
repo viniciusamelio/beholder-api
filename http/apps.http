@@ -1,0 +1,6 @@
+POST http://localhost:3000/v1/apps
+Content-Type: application/json
+
+{
+    "title" : "Acme App"
+}
